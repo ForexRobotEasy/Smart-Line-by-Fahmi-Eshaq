@@ -1,0 +1,55 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                              Smart Line          |
+//|                                      Developed by Forex Robot    |
+//|                                      Easy Team (forexroboteasy.com)|
+//+------------------------------------------------------------------+
+#property copyright 'Forex Robot Easy Team (forexroboteasy.com)'
+#property link      'forexroboteasy.com'
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Enable line events
+    EventSetMillisecondTimer(100);
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Disable line events
+    EventSetMillisecondTimer(0);
+}
+
+//+------------------------------------------------------------------+
+//| Event function                                                   |
+//+------------------------------------------------------------------+
+void OnEvent(const int id, const long &lparam, const double &dparam, const string &sparam)
+{
+    // Check if the event is a line touch
+    if (id == EVENT_OBJECT_LINE_TOUCH)
+    {
+        // Get the object name
+        string objectName = sparam;
+
+        // Get the price level of the touch
+        double price = dparam;
+
+        // Send notification to user
+        SendNotification('Smart Line', 'The price has touched the ' + objectName + ' at ' + DoubleToString(price, Digits()), 0);
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Empty function body, as this expert advisor is solely based on line events
+}
